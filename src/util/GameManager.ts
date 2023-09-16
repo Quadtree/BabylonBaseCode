@@ -38,6 +38,7 @@ export class GameManager {
         if (this.engine instanceof WebGPUEngine) {
             await this.engine.initAsync();
         }
+        this.engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
         this.scene = new Scene(this.engine);
         await this.game.init(this);
     }
