@@ -2,17 +2,11 @@ version: "3.3"
 
 services:
   serve:
-    image: node:14
+    image: node:18
     volumes: &default-volumes
-      - ./src:/src/src:ro
+      - ./:/src:ro
       - ./node_modules:/src/node_modules
-      - ./dist:/src/dist
-      - ./index.html:/src/index.html:ro
-      - ./package.json:/src/package.json:ro
-      - ./tsconfig.json:/src/tsconfig.json:ro
-      - ./webpack:/src/webpack:ro
       - ./yarn.lock:/src/yarn.lock
-      - ./assets:/src/assets:ro
     ports:
       - 8080:8080
     command:
@@ -21,22 +15,9 @@ services:
     - cd /src &&
       yarn &&
       yarn run start
-  test:
-    image: node:14
-    volumes:
-    - ./node_modules:/src/node_modules
-    - ./src:/src/src:ro
-    - ./tsconfig.json:/src/tsconfig.json:ro
-    - ./package.json:/src/package.json:ro
-    - ./yarn.lock:/src/yarn.lock
-    command:
-    - sh
-    - -c
-    - cd /src &&
-      yarn &&
-      yarn run test
+
   build:
-    image: node:14
+    image: node:18
     volumes: *default-volumes
     command:
     - sh
@@ -44,8 +25,9 @@ services:
     - cd /src &&
       yarn &&
       yarn run build
+
   gameserver:
-    image: node:14
+    image: node:18
     volumes: *default-volumes
     ports:
       - 8081:80
@@ -54,6 +36,7 @@ services:
     - -c
     - cd /src &&
       node_modules/.bin/ts-node src/multiplayer/server.ts
+
   texture-packer:
     image: openjdk:11
     volumes:

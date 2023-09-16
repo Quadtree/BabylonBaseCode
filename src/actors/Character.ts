@@ -53,12 +53,12 @@ export class Character extends Actor {
     private acceptingInput = true;
 
     private readonly ghostObjectHolder: btHolder<any>;
-    private readonly transformHolder:btHolder<any>;
-    private readonly capsuleShapeHolder:btHolder<any>;
-    private static readonly ghostPairCallbackHolder:WeakMap<any, btHolder<any>> = new WeakMap<any, btHolder<any>>();
-    private readonly characterControllerHolder:btHolder<any>;
+    private readonly transformHolder: btHolder<any>;
+    private readonly capsuleShapeHolder: btHolder<any>;
+    private static readonly ghostPairCallbackHolder: WeakMap<any, btHolder<any>> = new WeakMap<any, btHolder<any>>();
+    private readonly characterControllerHolder: btHolder<any>;
 
-    private get character(){ return this.characterControllerHolder.v; }
+    private get character() { return this.characterControllerHolder.v; }
 
     public get pos() {
         let v3 = this.character.getGhostObject().getWorldTransform().getOrigin();
@@ -70,7 +70,7 @@ export class Character extends Actor {
         this.character.getGhostObject().getWorldTransform().setOrigin(this.toBLVector3(v).v);
     }
 
-    public constructor(protected readonly scene: Scene, private readonly canvas: HTMLCanvasElement | null, position: Vector3, private readonly debugMode:boolean = false) {
+    public constructor(protected readonly scene: Scene, private readonly canvas: HTMLCanvasElement | null, position: Vector3, private readonly debugMode: boolean = false) {
         super()
 
         this.camera = new FreeCamera('', new Vector3(), this.scene);
@@ -88,7 +88,7 @@ export class Character extends Actor {
         this.camera.keysUp = [];
         this.camera.keysRight = [];
 
-        if (!this.scene){
+        if (!this.scene) {
             throw new Error('this.scene cannot be null');
         }
 
@@ -106,7 +106,7 @@ export class Character extends Actor {
 
         m_ghostObject.setWorldTransform(startTransform);
 
-        if (!Character.ghostPairCallbackHolder.has(ajsp.world)){
+        if (!Character.ghostPairCallbackHolder.has(ajsp.world)) {
             Character.ghostPairCallbackHolder.set(ajsp.world, new btHolder<any>(new Ammo.btGhostPairCallback()));
             ajsp.world.getBroadphase().getOverlappingPairCache().setInternalGhostPairCallback(Character.ghostPairCallbackHolder.get(ajsp.world)!.v);
         }
@@ -142,7 +142,7 @@ export class Character extends Actor {
                 }
             });
 
-            if (this.debugMode){
+            if (this.debugMode) {
                 debugUi = AdvancedDynamicTexture.CreateFullscreenUI('', true, this.scene);
                 debugUiText = new TextBlock('', 'test')
                 debugUi.addControl(debugUiText)
@@ -219,12 +219,12 @@ export class Character extends Actor {
         }
 
         if (this.addCharge <= 0 && this.isAdded) {
-            this.scene.getPhysicsEngine()!.getPhysicsPlugin().world.removeAction(this.character);
+            this.scene.getPhysicsEngine()!.getPhysicsPlugin()!.world.removeAction(this.character);
             this.isAdded = false;
         }
 
         if (this.addCharge >= 1 && !this.isAdded) {
-            this.scene.getPhysicsEngine()!.getPhysicsPlugin().world.addAction(this.character);
+            this.scene.getPhysicsEngine()!.getPhysicsPlugin()!.world.addAction(this.character);
             this.isAdded = true;
         }
 
@@ -241,7 +241,7 @@ export class Character extends Actor {
         super.exitingWorld();
 
         if (this.isAdded) {
-            this.scene.getPhysicsEngine()!.getPhysicsPlugin().world.removeAction(this.character);
+            this.scene.getPhysicsEngine()!.getPhysicsPlugin()!.world.removeAction(this.character);
             this.isAdded = false;
         }
 

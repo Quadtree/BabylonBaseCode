@@ -17,25 +17,25 @@ import { GameManager } from "./util/GameManager";
 
 export class TerrainDemo implements Game {
     //private _camera: FreeCamera;
-    private shadowGenerator:ShadowGenerator | null = null;
+    private shadowGenerator: ShadowGenerator | null = null;
     private actorManager = new ActorManager()
-    private character:Character|null = null
+    private character: Character | null = null
 
-    private gameManager:GameManager|null = null
+    private gameManager: GameManager | null = null
 
-    private sphere:any;
+    private sphere: any;
 
-    private get _scene(){ return this.gameManager!.scene; }
-    private get _canvas(){ return this.gameManager!.canvas; }
+    private get _scene() { return this.gameManager!.scene; }
+    private get _canvas() { return this.gameManager!.canvas; }
 
-    async init(gameManager:GameManager){
+    async init(gameManager: GameManager) {
         this.gameManager = gameManager;
         await this.gameManager.enablePhysics();
 
-        const skyLight = new HemisphericLight('light1', new Vector3(0,1,0), this._scene);
+        const skyLight = new HemisphericLight('light1', new Vector3(0, 1, 0), this._scene);
         skyLight.intensity = 0.1
 
-        const directionalLight = new DirectionalLight("light2", new Vector3(1,-0.25,1), this._scene)
+        const directionalLight = new DirectionalLight("light2", new Vector3(1, -0.25, 1), this._scene)
         directionalLight.shadowEnabled = true
         directionalLight.autoCalcShadowZBounds = true
 
@@ -46,33 +46,33 @@ export class TerrainDemo implements Game {
         this.actorManager.scene = this._scene
         this._scene.useRightHandedSystem = false;
 
-        let chr = new Character(this._scene, this._canvas, new Vector3(0,15,0));
+        let chr = new Character(this._scene, this._canvas, new Vector3(0, 15, 0));
         this.actorManager.add(chr);
 
         //await this.createHeightmapTerrain();
         await this.createMeshTerrain();
 
         // create some reference points
-        this.createBox(new Vector3(0,10,-20), 1)
-        this.createBox(new Vector3(0,10,20), 1)
-        this.createBox(new Vector3(-20,10,0), 1)
-        this.createBox(new Vector3(20,10,0), 1)
+        this.createBox(new Vector3(0, 10, -20), 1)
+        this.createBox(new Vector3(0, 10, 20), 1)
+        this.createBox(new Vector3(-20, 10, 0), 1)
+        this.createBox(new Vector3(20, 10, 0), 1)
 
-        this.createBox(new Vector3(-8,10,28), 1)
+        this.createBox(new Vector3(-8, 10, 28), 1)
     }
 
-    createBoxTerrain(){
-        const someBox = MeshBuilder.CreateBox('', {width:20, depth: 60, height: 0.2});
-        someBox.physicsImpostor = new PhysicsImpostor(someBox, PhysicsImpostor.BoxImpostor, {mass: 0});
+    createBoxTerrain() {
+        const someBox = MeshBuilder.CreateBox('', { width: 20, depth: 60, height: 0.2 });
+        someBox.physicsImpostor = new PhysicsImpostor(someBox, PhysicsImpostor.BoxImpostor, { mass: 0 });
 
-        const someBox2 = MeshBuilder.CreateBox('', {width:20, depth: 60, height: 0.2});
+        const someBox2 = MeshBuilder.CreateBox('', { width: 20, depth: 60, height: 0.2 });
         someBox2.rotation.x = -0.4;
         someBox2.position.z = 30;
-        someBox2.physicsImpostor = new PhysicsImpostor(someBox2, PhysicsImpostor.BoxImpostor, {mass: 0});
+        someBox2.physicsImpostor = new PhysicsImpostor(someBox2, PhysicsImpostor.BoxImpostor, { mass: 0 });
     }
 
     async createMeshTerrain() {
-        const root = (await SceneLoader.ImportMeshAsync(null, './assets/flat2.glb', '', this._scene));
+        const root = (await SceneLoader.ImportMeshAsync(null, './assets/ter3.glb', '', this._scene));
         const ground2 = root.meshes[0];
 
         console.log(`loaded ground2=${ground2.name}`)
@@ -91,13 +91,13 @@ export class TerrainDemo implements Game {
         groundMat1.baseTexture = grassTexture;
         groundMat1.normalTexture = grassNormalTexture;
 
-        ground2.physicsImpostor = new PhysicsImpostor(ground2, PhysicsImpostor.MeshImpostor, {mass: 0}, this._scene);
+        ground2.physicsImpostor = new PhysicsImpostor(ground2, PhysicsImpostor.MeshImpostor, { mass: 0 }, this._scene);
 
-        ground2.position = new Vector3(0,0,15);
+        ground2.position = new Vector3(0, 0, 0);
         ground2.rotationQuaternion?.addInPlace(Quaternion.FromEulerAngles(0, 1, 0));
     }
 
-    createHeightmapTerrain():Promise<string> {
+    createHeightmapTerrain(): Promise<string> {
         return new Promise<string>((res, rej) => {
             let ground2 = MeshBuilder.CreateGroundFromHeightMap("noise", "assets/some_noise.png", {
                 width: 512,
@@ -107,9 +107,9 @@ export class TerrainDemo implements Game {
 
                 onReady: () => {
                     console.log('reeeedddaaaaahhh')
-                    ground2.physicsImpostor = new PhysicsImpostor(ground2, PhysicsImpostor.MeshImpostor, {mass: 0}, this._scene)
+                    ground2.physicsImpostor = new PhysicsImpostor(ground2, PhysicsImpostor.MeshImpostor, { mass: 0 }, this._scene)
 
-                    ground2.physicsImpostor.executeNativeFunction((world:any, physicsBody:any) => {
+                    ground2.physicsImpostor.executeNativeFunction((world: any, physicsBody: any) => {
                         console.log(world);
                         console.log(physicsBody);
                     });
@@ -127,13 +127,13 @@ export class TerrainDemo implements Game {
 
     }
 
-    createBox(vec3:Vector3, mass:number = 0){
-        const playerMesh = MeshBuilder.CreateBox('A BOX', {width:1, height:1, depth:1})
-        playerMesh.physicsImpostor = new PhysicsImpostor(playerMesh, PhysicsImpostor.BoxImpostor, {mass: mass}, this._scene);
+    createBox(vec3: Vector3, mass: number = 0) {
+        const playerMesh = MeshBuilder.CreateBox('A BOX', { width: 1, height: 1, depth: 1 })
+        playerMesh.physicsImpostor = new PhysicsImpostor(playerMesh, PhysicsImpostor.BoxImpostor, { mass: mass }, this._scene);
         playerMesh.position = vec3
     }
 
-    update(delta:number){
+    update(delta: number) {
         this.actorManager.update(delta);
     }
 }

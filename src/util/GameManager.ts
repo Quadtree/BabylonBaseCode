@@ -6,39 +6,47 @@ import { Quaternion, Vector3 } from "@babylonjs/core/Maths/math.vector";
 import "@babylonjs/core/Physics/physicsEngineComponent";
 import "@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent";
 import { Game } from "./Game";
-import { AmmoJSPlugin } from "@babylonjs/core";
+import { AmmoJSPlugin, WebGPUEngine } from "@babylonjs/core";
 
-declare const Ammo:any;
+declare const Ammo: any;
 
 export class GameManager {
     public readonly canvas: HTMLCanvasElement;
-    public readonly engine: Engine;
-    public readonly scene: Scene;
+    public readonly engine: WebGPUEngine | Engine;
+    public scene!: Scene;
 
-    private lastRender:DOMHighResTimeStamp = performance.now();
+    private lastRender: DOMHighResTimeStamp = performance.now();
 
-    constructor(canvasElement : string, private game:Game) {
+    constructor(canvasElement: string, private game: Game) {
         // Create canvas and engine.
         this.canvas = document.getElementById(canvasElement) as HTMLCanvasElement;
-        this.engine = new Engine(this.canvas, true);
-
-        this.scene = new Scene(this.engine);
+        if (navigator.gpu) {
+            console.log(`=== WebGPU is supported, using WebGPU ===`)
+            this.engine = new WebGPUEngine(this.canvas);
+        } else {
+            console.log(`=== WebGPU is NOT supported, falling back on WebGL ===`)
+            this.engine = new Engine(this.canvas, true);
+        }
     }
 
-    async enablePhysics(){
+    async enablePhysics() {
         await Ammo();
         this.scene.enablePhysics(new Vector3(0, -9.8, 0), new AmmoJSPlugin());
     }
 
-    async init(){
+    async init() {
+        if (this.engine instanceof WebGPUEngine) {
+            await this.engine.initAsync();
+        }
+        this.scene = new Scene(this.engine);
         await this.game.init(this);
     }
 
-    setupPhysicsViewer(){
+    setupPhysicsViewer() {
         var physicsViewer = new PhysicsViewer(this.scene);
 
-        const showImposters = (mesh:AbstractMesh) =>{
-            for(let cm of mesh.getChildMeshes()){
+        const showImposters = (mesh: AbstractMesh) => {
+            for (let cm of mesh.getChildMeshes()) {
                 showImposters(cm);
             }
 
