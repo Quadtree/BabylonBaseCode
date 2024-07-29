@@ -1,8 +1,9 @@
 import { GameManager } from "./GameManager";
 
-export interface Game
-{
-    init(gameManager:GameManager):Promise<void>;
+export interface Game {
+    requireXR?: boolean
 
-    update(delta:number):void;
+    init(gameManager: GameManager): Promise<void>;
+
+    update(delta: number): void;
 }

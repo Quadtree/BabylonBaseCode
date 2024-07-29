@@ -5,15 +5,15 @@ import { Scene } from "@babylonjs/core/scene";
 import { Sprite } from "@babylonjs/core/Sprites/sprite";
 import { SpriteManager } from "@babylonjs/core/Sprites/spriteManager";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
-import { LibGDXSpriteManager } from './util/LibGDXSpriteManager';
+import { LibGDXSpriteManager } from '../util/LibGDXSpriteManager';
 import * as matter from 'matter-js'
 
 class BoxActor {
-    body:matter.Body
-    sprite:Sprite
+    body: matter.Body
+    sprite: Sprite
 
-    constructor(game:Game, y:number, movable:boolean){
-        this.body = matter.Bodies.rectangle(0, 0, 1, 1, {position: {x: 0, y: y}})
+    constructor(game: Game, y: number, movable: boolean) {
+        this.body = matter.Bodies.rectangle(0, 0, 1, 1, { position: { x: 0, y: y } })
         if (!movable) matter.Body.setStatic(this.body, true)
 
         matter.World.addBody(game.pEngine.world, this.body)
@@ -22,7 +22,7 @@ class BoxActor {
         this.sprite.cellRef = 'box1'
     }
 
-    public update(){
+    public update() {
         this.sprite.position.x = this.body.position.x
         this.sprite.position.y = this.body.position.y
         this.sprite.position.z = 0
@@ -37,11 +37,11 @@ export class Game {
     private _scene: Scene;
     private _camera: FreeCamera;
     //private _light: Light;
-    public pEngine:matter.Engine
-    public spriteManager?:SpriteManager
-    public actors:BoxActor[] = []
+    public pEngine: matter.Engine
+    public spriteManager?: SpriteManager
+    public actors: BoxActor[] = []
 
-    constructor(canvasElement : string) {
+    constructor(canvasElement: string) {
         // Create canvas and engine.
         this._canvas = document.getElementById(canvasElement) as HTMLCanvasElement;
         this._engine = new Engine(this._canvas, true);
@@ -50,7 +50,7 @@ export class Game {
         this._scene = new Scene(this._engine);
 
         // Create a FreeCamera, and set its position to (x:0, y:5, z:-10).
-        this._camera = new FreeCamera('camera1', new Vector3(0, 5,-10), this._scene);
+        this._camera = new FreeCamera('camera1', new Vector3(0, 5, -10), this._scene);
         this._camera.mode = Camera.ORTHOGRAPHIC_CAMERA
         this._camera.orthoBottom = -5
         this._camera.orthoTop = 5
@@ -88,7 +88,7 @@ export class Game {
             //someSprite.position.y = 2
             //someSprite.cellRef = 'box1'
 
-            for (let i=0;i<4;++i){
+            for (let i = 0; i < 4; ++i) {
                 this.actors.push(new BoxActor(this, i * 2, i != 0))
             }
 
@@ -96,9 +96,9 @@ export class Game {
         })
     }
 
-    private sphere:any;
+    private sphere: any;
 
-    doRender() : void {
+    doRender(): void {
         // Run the render loop.
         this._engine.runRenderLoop(() => {
             //this.sphere.position.y = 4 + Math.random();

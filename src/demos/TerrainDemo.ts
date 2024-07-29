@@ -9,10 +9,10 @@ import { Texture } from "@babylonjs/core/Materials/Textures/texture";
 import { Quaternion, Vector3 } from "@babylonjs/core/Maths/math.vector";
 import "@babylonjs/core/Physics/physicsEngineComponent";
 import "@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent";
-import { ActorManager } from './am/ActorManager';
-import { Character } from './actors/Character';
-import { Game } from "./util/Game";
-import { GameManager } from "./util/GameManager";
+import { ActorManager } from '../am/ActorManager';
+import { Character } from '../actors/Character';
+import { Game } from "../util/Game";
+import { GameManager } from "../util/GameManager";
 
 
 export class TerrainDemo implements Game {

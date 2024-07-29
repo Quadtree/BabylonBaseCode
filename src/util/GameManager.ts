@@ -20,11 +20,13 @@ export class GameManager {
     constructor(canvasElement: string, private game: Game) {
         // Create canvas and engine.
         this.canvas = document.getElementById(canvasElement) as HTMLCanvasElement;
-        if (navigator.gpu) {
-            console.log(`=== WebGPU is supported, using WebGPU ===`)
+
+        // currently, WebGPU and WebXR are incompatible
+        if (navigator.gpu && !game.requireXR) {
+            console.log(`=== navigator.gpu=${!!navigator.gpu} game.requireXR=${!!game.requireXR}, using WebGPU ===`)
             this.engine = new WebGPUEngine(this.canvas);
         } else {
-            console.log(`=== WebGPU is NOT supported, falling back on WebGL ===`)
+            console.log(`=== navigator.gpu=${!!navigator.gpu} game.requireXR=${!!game.requireXR}, falling back on WebGL ===`)
             this.engine = new Engine(this.canvas, true);
         }
     }

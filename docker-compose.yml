@@ -9,6 +9,7 @@ services:
       - ./yarn.lock:/src/yarn.lock
     ports:
       - 8080:8080
+    stop_signal: SIGKILL
     command:
     - sh
     - -c

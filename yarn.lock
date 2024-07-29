@@ -2,20 +2,20 @@
 # yarn lockfile v1
 
 
-"@babylonjs/core@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-6.0.0.tgz#a8628c4bf8f22c706b32f7fc0e3ef8c2600c39d0"
-  integrity sha512-lQ0cDwhVrWn9MSf91UsvLbWMpIFW0P1YxNSghUG3yTOaf2ZpKEl9AmTrbN+lMfxkrGdgQQB+Bgd3khc2kkMkrA==
+"@babylonjs/core@^7.0.0":
+  version "7.13.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-7.13.1.tgz#ac292e07729dc06695142f2d35439b6fc844c495"
+  integrity sha512-limlsRIhRBH9xsuUNsy9xAyi0jhfQxfvhlMzMjFK3Ugq4c7joYpoZMkQU038esOQ3aq3q8VPv1+CshE3NASEMQ==
 
-"@babylonjs/gui@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-6.0.0.tgz#77915ad8d92f5c30543decb4972053ec9b5ddd57"
-  integrity sha512-oCvDo8u4Z/n5w6ZVlEpTYuaNpFQ1lu6eEz/xSDCcyRND7EqRj+EJjprvaFDz8c+prVEsC1WRMI5swjy/044sww==
+"@babylonjs/gui@^7.0.0":
+  version "7.13.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-7.13.1.tgz#ff55ad06c8af8046aff983a8792d02a7f01eff07"
+  integrity sha512-FW2QOqpzoJI2q/hFKOa7O7xnj6oKzHWmTGHVhqjg7jzZy//bMZ5AbxNdMpQgDa+QoENpd7r+yx1O4kc4Lw1UaQ==
 
-"@babylonjs/loaders@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-6.0.0.tgz#a4d72cab8640a30a10e005a101078348cb3ca521"
-  integrity sha512-QXHW+/NnZ+asGGyZzlQyCRWCoM+iou/Btqh7WjTPnqPSz0aw3yE9lMqMm67B3iTmtD9XGuEkZ0fPoDDgsW1Z7Q==
+"@babylonjs/loaders@^7.0.0":
+  version "7.13.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-7.13.1.tgz#2574a71cd220af8c83cbaa0f150509cef852ceab"
+  integrity sha512-17MCwYpMM4EF69wzsclIvs7Ci84lYdkcH2NSM3hD3phl8k373yNKVvBNrs68p9yZUCFbXIVEH1tl5QQxr2T37g==
 
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
@@ -769,6 +769,11 @@ dns-packet@^5.2.2:
   integrity sha512-l4gcSouhcgIKRvyy99RNVOgxXiicE+2jZoNmaNmZ6JXiGajBOJAesk1OBlJuM5k2c+eudGdLxDqXuPCKIj6kpw==
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
+
+earcut@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/earcut/-/earcut-3.0.0.tgz#a8d5bf891224eaea8287201b5e787c6c0318af89"
+  integrity sha512-41Fs7Q/PLq1SDbqjsgcY7GA42T0jvaCNGXgGtsNdvg+Yv8eIu06bxv4/PoREkZ9nMDNwnUSG9OFB9+yv8eKhDg==
 
 ee-first@1.1.1:
   version "1.1.1"
